@@ -1,0 +1,129 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    vibes
+{% endblock %}
+{% block main %}
+<br>
+<br>
+<div class = "container" style = "text-align: center;">
+    <p class = "journaltitle" style = "color: white;">Your Vibes....</p>
+</div>
+<div style="width: 40rem; height: 60rem;">
+  <br>
+  <br>
+  <div class="row">
+        <div class="col-md-12">
+            <div style="overflow-x: scroll">
+                <div style="position: relative; width: {{ width_str }}">
+                    <canvas height="400" id="lineChart"></canvas>
+                </div>
+            </div>
+        </div>
+  </div>
+  <br>
+  <br>
+</div>
+<script>
+    var canvas = document.getElementById("lineChart");
+    var history_chart = canvas.getContext('2d');
+
+    // global settings for everything in the chart
+    Chart.defaults.global.defaultFontColor = 'white';
+    Chart.defaults.global.defaultFontSize = 16;
+    Chart.defaults.global.defaultFontFamily = 'Trebuchet MS';
+    Chart.defaults.global.spanGaps = true;
+    Chart.defaults.global.fill = true;
+    Chart.defaults.global.borderCapStyle = 'round';
+    Chart.defaults.global.borderJoinStyle = 'miter';
+
+    // chart data
+    var data = {
+      labels: {{ date|safe }},
+      datasets: [{
+          label: "Angry",
+          data: {{ angry|safe }},
+          borderColor: "#F7464A", // main color
+          pointBackgroundColor: "#F7464A", // point color
+          backgroundColor: "rgba(255, 90, 94, 0.5)" // color beneath the line
+        }, {
+          label: "Fear",
+          data: {{ fear|safe }},
+          borderColor: "#158614",
+          pointBackgroundColor: "#158614",
+          backgroundColor: "rgba(25, 151, 24, 0.5)"
+        }, {
+          label: "Happy",
+          data: {{ happy|safe }},
+          borderColor: "#FFD700",
+          pointBackgroundColor: "#FFD700",
+          backgroundColor: "rgba(255, 222, 47, 0.5)"
+        }, {
+          label: "Sad",
+          data: {{ sad|safe }},
+          borderColor: "#002E53",
+          pointBackgroundColor: "#002E53",
+          backgroundColor: "rgba(4, 61, 107, 0.5)"
+        }, {
+          label: "Surprise",
+          data: {{ surprise|safe }},
+          borderColor: "#3BB4D3",
+          pointBackgroundColor: "#3BB4D3",
+          backgroundColor: "rgba(68,195,228, 0.5)"
+        }
+      ]
+    };
+
+    // chart options
+    var options = {
+        responsive: true,
+        maintainAspectRatio: false,
+        legend: {
+            position: 'bottom'
+        },
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true,
+                    max: 1,
+                    min: 0,
+                    padding: 5
+                },
+                scaleLabel: {
+                     display: true,
+                     labelString: 'Emotions',
+                     fontSize: 20
+                },
+                gridLines: {
+                    color: 'white',
+                    drawTicks: false,
+                    zeroLineColor: 'white'
+                }
+            }],
+            xAxes: [{
+                ticks: {
+                    display: false
+                },
+                scaleLabel: {
+                     display: true,
+                     labelString: 'Entries',
+                     fontSize: 20
+                },
+                gridLines: {
+                    color: 'white',
+                    drawTicks: false,
+                    zeroLineColor: 'white'
+                }
+            }]
+        }
+    };
+
+    // declare chart:
+    var myLineChart = new Chart(history_chart, {
+      type: 'line',
+      data: data,
+      options: options,
+    });
+</script>
+
+{% endblock %}

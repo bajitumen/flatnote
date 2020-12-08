@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+    
+    <div class="row">
+    <div class="column" style="width: 12rem;"></div>
+    <div class="column" style="width: 18rem;">
+    <div style = "text-align: center;" id = "box1" style="width: 18em; height: 20rem;">
+    <br>
+    <br>
+    <h1 style = "text-align: center; color: black; font-family: 'Trebuchet MS', sans-serif; font-weight:bold;">REGISTER</h1>
+    <br>
+    <form action="/register" method="post" class="container-sm" style = "font-family: 'Trebuchet MS'">
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text">
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="password" placeholder="Password" type="password">
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="confirmation" placeholder="Confirm password" type="password">
+        </div>
+        <div style = "text-align: center;">
+        <button class="btn btn-light" type="submit" style = "font-family: 'Trebuchet MS', sans-serif;">Register</button>
+        </div>
+    </form>
+    <br>
+    </div>
+    </div>
+    <div class="column" style="width: 10rem;"></div>
+    </div>
+    
+{% endblock %}

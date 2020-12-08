@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block main %}
+<br>
+<br>
+<p class = "journaltitle">About Us......</p>
+<div class = "container" style = "text-align:center;">
+    <a href = "https://twitter.com/Bajjiiiiii">
+        <img src = "/static/baji.JPG" alt="Baji holding a Choco-Pie"style = "width:200px; height:200px;"></img>
+    </a>
+    <a href = "https://twitter.com/Will_Zhu_">
+        <img alt="Will taking a selfie in nature"src = "/static/will.jpg" style = "width:200px; height:200px;"></img>
+    </a>
+</div>
+<br>
+Hello, world! Our names are Baji Tumendemberel and Will Zhu and flatNotes is our final project for CS50. To use this site, either write freely in the textbox or copy and paste text.
+The text will be submitted either at the end of our two minute timer or you can press submit if you don't need that much time.
+You can use the journals page to keep track of your past journal entries in chronological order. <br><br>
+Once you have submitted the journal entry, the text will be read by a sentiment analysis function found in <a href = "https://towardsdatascience.com/text2emotion-python-package-to-detect-emotions-from-textual-data-b2e7b7ce1153" class = "pythonlibrary">this Python library.</a>
+This will return emotional values corresponding to happy, sad, fear, surprise, and angry. Using these values, we are able to display your emotional composition.
+We are also working on adding the functionality to create a Spotify playlist using the emotional values as metrics to select for songs within your top 100
+most recent liked songs, so be on the lookout!
+<br>
+<br>
+<br>
+{% endblock %}

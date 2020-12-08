@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    journals
+{% endblock %}
+
+{% block main %}
+<br>
+<p class = "journaltitle">Old Journals <p>
+    <div class = "table-responsive">
+    <table class = "table borderless">
+        <thead>
+            <th style = "color: white; font-size:20px; font-family: 'Trebuchet MS', sans-serif">
+                Entries
+            </th>
+        </thead>
+        <tbody>
+            <!-- display all the journals in reverse order (newest first) -->
+            {% for journals in journals|reverse %}
+            <tr>
+                <form action="/journal" method="POST">
+                    <td class = "date">{{ journals.date }}<b style = "color: rgba(0, 0, 0, 0.0)">________________________________________<b>
+                    <button type="submit" value="{{ journals.id }}" name="delete" class = "deletebutton" style = "color:white;">X</button>
+                    </td>
+                </form>
+                
+            </tr>
+            <tr>
+                <td style = "color: white;">{{ journals.text }}<br></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    results
+{% endblock %}
+{% block main %}
+<div class = "container-lg" style = "text-align: center;">
+<h1>Results <h1>
+</div>
+<div class = "container-lg">
+    <table class = "table borderless">
+        <tbody>
+            <tr>
+                <td style = "font-size:12px; color:white;">
+                    <h1 style = "font-size:20px; color:white;">Your Emotional Balance</h1>
+
+                        From your text entry it seems that you are feeling {{ lower_max_emotion_name }}. {{message}}
+                        <br>
+                        <br>
+                        If you would like to submit another journal entry, feel free to click on the flatnotes title on the navbar (but don't press the period).
+                        <br>
+                        <br>
+                        Happy journalling!
+
+                </td>
+
+                <td>
+                    <canvas id="doughnutChart" width="600" height="600"></canvas>
+                    <script>
+                        var emo_chart = document.getElementById("doughnutChart").getContext('2d'); // get the chart element, set canvas to 2d object
+                        var emo_dict = {{ emotions|safe }}; // get emotions dictionary from Python
+                        // declare new chart
+                        var doughnutChart = new Chart(emo_chart, {
+                            type: 'doughnut',
+                            data:
+                            {
+                                labels: ["Angry", "Fear", "Happy", "Sad", "Surprise"], // chart labels
+                                datasets: [
+                                    {
+                                    data: [emo_dict["Angry"], emo_dict["Fear"], emo_dict["Happy"], emo_dict["Sad"], emo_dict["Surprise"]], // data from emotions dictionary
+                                    backgroundColor: ["#F7464A", "#158614", "#FFD700", "#002E53", "#3BB4D3"], // hand-picked colors
+                                    hoverBackgroundColor: ["#FF5A5E", "#199718", "#FFDE2F", "#043d6b", "#44C3E4"],
+                                    borderWidth: 0
+                                    }
+                                ]
+                            },
+                            options:
+                            {
+                                legend: {
+                                    labels: {
+                                        fontColor: 'white' // white text in the legend
+                                    }
+                                },
+                                responsive: true
+                            }
+                        });
+                    </script>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br>
+</div>
+
+{% endblock %}

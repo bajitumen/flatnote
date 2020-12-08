@@ -1,0 +1,94 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    cover
+{% endblock %}
+
+{% block main %}
+    <div class = "container-sm">
+    <p style = "color: white;">what's on your mind?</p>
+    <form action="/results" method="post" id = "entry">
+        <div class="form-group">
+            <textarea autocomplete="off" autofocus class="form-control" name="entry" placeholder="" rows = "15" style="background-color:rgb(240, 240, 240, 0.5); border-color: rgba(0, 0, 0, 0)" type="text"></textarea>
+        </div>
+    </form>
+    <ul>
+        <li>
+          <button type="button" class="btn btn-light" class = "newbutton" onclick ="ClearFields()">Clear</button>
+        </li>
+        <li>
+            <pre>                     </pre>
+        </li>
+      <li>
+        <div class = "timer">
+                <span id="timer"></span>
+        </div>
+      </li>
+      <li>
+          <pre>                     </pre>
+      </li>
+      <li>
+            <button type="button" class="btn btn-light" class = "newbutton" onclick = "submit()">Submit</button>
+      </li>
+    </ul>
+    </div>
+    <script>
+        function ClearFields()
+        {
+
+            var clear = confirm("Are you sure you want to clear your entry?");
+            if (clear == true)
+            {
+                document.querySelector('textarea').value = "";
+            }
+
+        }
+        
+        const input = document.querySelector('textarea');
+        input.addEventListener('input', startTimer);
+        document.getElementById('timer').innerHTML = 001 + ":0" + 000;
+        function startTimer()
+        {
+            // Queries the starting values of the timer
+            var presentTime = document.getElementById('timer').innerHTML;
+            // Splits the current time into an array that is divided by a colon
+            var timeArray = presentTime.split(/[:]+/);
+            // Assigns the variable m as the first part of the array or the minutes place
+            var m = timeArray[0];
+            // Assigns the variable s as the second part of the array and sets it to decrease by 1 every second
+            var s = checkSecond((timeArray[1] - 1));
+            // Once the seconds place goes back to 59, the minutes place decreases by 1
+            if(s==59){
+                m=m-1
+            }
+            //Removes the input event listened so timer is only started once 
+            input.removeEventListener('input', startTimer);
+            // Submits the form at the end of the timer 
+            if(m==0 && s==0)
+            {
+                m = 0;
+                s = 0;
+                document.getElementById("entry").submit();
+            }
+            
+            document.getElementById('timer').innerHTML = m + ":" + s;
+            console.log(m)
+            // Sets the pace of the timer to 1 second 
+            setTimeout(startTimer, 1000);
+        }
+        // This function adds a 0 before the seconds place if it is below 10 and sets the seconds back to 59 if it becomes negative
+        function checkSecond(sec)
+        {
+            if (sec < 10 && sec >= 0) {sec = "0" + sec}; // add zero in front of numbers < 10
+            if (sec < 0) {sec = "59"};
+            return sec;
+        }
+        // This function submits the form 
+        function submit()
+        {
+            document.getElementById("entry").submit();
+        }
+
+    </script>
+{% endblock %}
+
