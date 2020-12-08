@@ -20,7 +20,7 @@ from spotipy.oauth2 import SpotifyOAuth
 
 # Configure application
 app = Flask(__name__)
-db = SQL("sqlite:///journals.db")
+db = SQL("postgres://hwgbmqlzkbmmcw:e292a8bcc9c200307fdf1f458a88278a633874d395e1821943393d7701fa7839@ec2-54-86-57-171.compute-1.amazonaws.com:5432/dbsgttmmoe6v4s")
 
 """
 # The below client ID was given to us once we signed up on the Spotify for Developers page
